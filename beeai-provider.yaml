@@ -1,8 +1,0 @@
-manifestVersion: 1
-driver: python
-pythonVersion: "3.11"
-package: "git+https://github.com/i-am-bee/beeai-agent-starter-py@main"
-serverType: http
-mcpTransport: sse
-mcpEndpoint: /sse
-command: [ "beeai-agents" ]

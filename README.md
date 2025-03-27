@@ -28,7 +28,7 @@ To get started, click **Use this template** or fork this repository.
 You can experiment with the agents locally by running it directly:
 
 ```sh
-uv run beeai-agents
+uv run server
 ```
 
 You'll get an output similar to:
@@ -40,87 +40,57 @@ INFO:     Application startup complete.
 INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
 ```
 
-Your agents should now be started on http://localhost:8000, you can now list agents using the beeai CLI with a few extra
-parameters:
+Your agents should now be started on http://localhost:8000, you can now list agents using the beeai CLI:
 
 ```sh
-env BEEAI__HOST=http://localhost:8000 \
-  BEEAI__MCP_SSE_PATH='/sse' \
-  beeai list
+beeai list
 ```
 
 And run your agent:
 
 ```sh
-env BEEAI__HOST=http://localhost:8000 \
-  BEEAI__MCP_SSE_PATH='/sse' \
-  beeai run example-agent "Your Name"
+beeai run example-agent "Your Name"
 ```
 
 ## Adding agents to the beeai platform
 
-Now you may want to add your agents to your collection in beeai. You can do that locally or from GitHub in a
-managed or unmanaged way. Let's break it down.
+Now you may want to add your agents to your collection in beeai. You can do that locally or from GitHub.
+Let's break it down.
 
 ### Locally
 
-The easiest way to add agents to beeai is to use a local provider manifest.
-It might be useful especially during rapid agent development to keep the agent code locally and iterate quickly.
-You have two options:
+The agents are automatically registered to the platform when you run them locally using `uv run server`. In this
+setup, the beeai platform will not manage the agent lifecycle (start / stop the agent) and it cannot provide
+environment variables from `beeai env list`. To supply environment variables, provide them on the command line when
+starting server:
 
-#### Add unmanaged agent
+```shell
+env MY_VAR=VALUE uv run server
+```
 
-This means that you will have to run the agent server yourself, the platform will not attempt to start, stop or
-configure it. You can add it in two simple steps:
-
-1. Start the agent server - run the command `uv run beeai-agents` from before
-2. Add provider manifest:
-   ```sh
-   beeai provider add file://beeai-provider-unmanaged.yaml
-   ```
-
-> Note: You will need to start the agent using `uv run beeai-agents` everytime you want to interact with the agent
-> through the platform.
-
-#### Add managed agent
-
-This means that the beeai platform will manage the agent server process
-(you won't have to run `uv run beeai-agents`, the platform will do it for you). All you need to do is to add the local
-provider manifest:
-
-   ```sh
-   beeai provider add file://beeai-provider-local.yaml
-   ```
-
-The platform will register the server and run it automatically from now on.
-> Note: If you want to update your code in a managed provider, you need to bump package version in `pyproject.toml`
-> and then re-register the provider `beeai provider remove <ID>`, `beeai provider add file://beeai-provider-local.yaml`
-
-### From GitHub
+#### Add managed agent from GitHub
 
 If you want to share your agent with others using the beeai platform, the easiest way is to use a GitHub link to
 your repository you created with the template:
 
-1. Modify [beeai-provider.yaml](beeai-provider.yaml) manifest with your repository url: `vim beeai-provider.yaml`
-2. Add provider manifest:
+1. Create [agent.yaml](agent.yaml) manifest with the agent name and metadata
+2. Add agent:
    ```sh
-   beeai provider add https://github.com/i-am-bee/beeai-agent-starter-py
+   beeai add https://github.com/i-am-bee/beeai-agent-starter-py
    ```
 
 > Note: To manage versions properly and prevent automatic updates or breaking changes we recommend creating a tag
-> (for example `agents-v0.0.1` which you then use in [beeai-provider.yaml](beeai-provider.yaml)).
->   - To release new version - create a new tag and modify `beeai-provider.yaml`
->   - To update the agent in beeai you'll need to `beeai provider remove <ID>` and add it again.
+> (for example `agents-v0.0.1`)
+>   - Specify tag when adding agent: `beeai add https://github.com/org/repo@agents-v0.0.1`
+>   - To release new version - create a new tag
+>   - To update the agent in beeai you'll need to `beeai remove <agent-name>` and add it again.
 
 ## Troubleshooting
 
-**How do I know the status of the agent provider?**
+**How do I know the status of the agent?**
 
-You can use `beeai provider list` to see whether the provider is initializing / ready or in an error state.
-Use `beeai provider info <ID>` to get full error message. You can also inspect the beeai server logs for further
-details.
+You can use `beeai list` to see whether the provider is initializing / ready or in an error state.
+For local provider you can see agent logs directly in the terminal after `uv run server`, for managed use
+`beeai logs <ID>`.
 
-**Changes to my agent are not propagated to the platform**
-
-Make sure to bump `pyproject.toml`, any git tags that you use (e.g. `agents-v0.0.x`) and re-register the provider
-using `beeai provider remove <ID>` and `beeai provider add <MANIFEST>`.
+You can also inspect the beeai server logs for further details (typically in `/opt/homebrew/var/log/beeai-server.log`)

@@ -1,8 +1,0 @@
-manifestVersion: 1
-driver: python
-pythonVersion: "3.11"
-package: "file://."
-serverType: http
-mcpTransport: sse
-mcpEndpoint: /sse
-command: [ "beeai-agents" ]
