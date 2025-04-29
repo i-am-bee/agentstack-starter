@@ -1,5 +1,0 @@
-manifestVersion: 1
-name: "example-agent"
-
-ui:
-  type: hands-off

@@ -1,10 +1,3 @@
-> 🚧 **Disclaimer**
->
-> The current MCP based implementation should be treated as temporary and exploratory. It's main purpose is to enable
-> integration of various agents into the platform and to explore underlying protocols, transports and possible
-> multi-agent
-> patterns. In Q2 2025, we expect to rebuild the SDK from the ground up.
-
 # Agent template
 
 This is an example template for a python agent that can be used in the beeai platform.
@@ -20,7 +13,7 @@ To get started, click **Use this template** or fork this repository.
 
 1. Install dependencies using `uv sync`
 
-2. Modify the source code in [src/beeai_agents/server.py](src/beeai_agents/server.py) to add your agent implementation
+2. Modify the source code in [src/beeai_agents/server.py](src/beeai_agents/agent.py) to add your agent implementation
    in any agentic framework you like. You can add as many agents as you like.
 
 ## Running agents locally
@@ -49,7 +42,7 @@ beeai list
 And run your agent:
 
 ```sh
-beeai run example-agent "Your Name"
+beeai run example_agent "Your Name"
 ```
 
 ## Adding agents to the beeai platform
@@ -60,13 +53,7 @@ Let's break it down.
 ### Locally
 
 The agents are automatically registered to the platform when you run them locally using `uv run server`. In this
-setup, the beeai platform will not manage the agent lifecycle (start / stop the agent) and it cannot provide
-environment variables from `beeai env list`. To supply environment variables, provide them on the command line when
-starting server:
-
-```shell
-env MY_VAR=VALUE uv run server
-```
+setup, the beeai platform will not manage the agent lifecycle (start / stop the agent).
 
 #### Add managed agent from GitHub
 

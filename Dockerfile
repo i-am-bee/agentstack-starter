@@ -1,5 +1,5 @@
 FROM python:3.11-slim-bookworm
-COPY --from=ghcr.io/astral-sh/uv:0.6.8 /uv /uvx /bin/
+COPY --from=ghcr.io/astral-sh/uv:0.6.16 /uv /bin/
 
 ENV UV_LINK_MODE=copy \
     PRODUCTION_MODE=true
@@ -7,8 +7,9 @@ ENV UV_LINK_MODE=copy \
 ADD . /app
 WORKDIR /app
 
-RUN uv sync
+RUN uv sync --no-cache --locked --link-mode copy
 
-ENV PATH="/app/.venv/bin:$PATH"
+ENV PRODUCTION_MODE=True \
+    PATH="/app/.venv/bin:$PATH"
 
-CMD ["uv", "run", "server"]
+CMD ["uv", "run", "--no-sync", "server"]
