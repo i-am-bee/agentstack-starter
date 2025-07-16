@@ -1,12 +1,17 @@
 # BeeAI Platform Agent Template
 
-This repository provides a template for creating a Python agent that can be used with the [BeeAI Platform](https://docs.beeai.dev).
+# TODO: update readme
+
+This repository provides a template for creating a Python agent that can be used with
+the [BeeAI Platform](https://docs.beeai.dev).
 
 ## Overview
 
-BeeAI agents are Python-based services that can be run locally or deployed to the BeeAI Platform. Each agent exposes specific functionality through the ACP (Agent Communication Protocol) which is implemented via SDK.
+BeeAI agents are Python-based services that can be run locally or deployed to the BeeAI Platform. Each agent exposes
+specific functionality through the ACP (Agent Communication Protocol) which is implemented via SDK.
 
 In this template, you'll find:
+
 - A basic agent implementation
 - Docker configuration to ease the build of agent
 - Project structure for building your own agents
@@ -38,11 +43,13 @@ In this template, you'll find:
 
 ## Getting Started
 
-1. **Set up your project**. Start by using this template for your own agent. You may use this as a template or fork this repository.
+1. **Set up your project**. Start by using this template for your own agent. You may use this as a template or fork this
+   repository.
 
 2. **Install dependencies** using `uv sync`.
 
-3. **Implement your agent** by modifying the source code located in [src/beeai_agents/server.py](src/beeai_agents/agent.py).
+3. **Implement your agent** by modifying the source code located
+   in [src/beeai_agents/server.py](src/hello_world/agent.py).
 
 Here's an example of the included template agent:
 
@@ -61,7 +68,9 @@ async def example_agent(input: list[Message], context: Context) -> AsyncGenerato
 ```
 
 Modify this file to implement your own agent's logic. Here are some key points to consider when creating your agent:
-- The function name (example_agent above) is used as the unique id for the agent in the platform. You can override this in the metadata.
+
+- The function name (example_agent above) is used as the unique id for the agent in the platform. You can override this
+  in the metadata.
 - The docstring is used as the agent's description in the platform UI. You can also override this in the metadata.
 - The `@server.agent()` decorator registers your function as an agent and can customize its appearance and behavior
 - Your agent receives messages in the `input` list, with the most recent message at the end
@@ -73,14 +82,15 @@ Modify this file to implement your own agent's logic. Here are some key points t
 
 ### 🖥️ Enhancing the User Experience with `PlatformUIAnnotation`
 
-To create the most engaging and helpful interface for your users, define the following metadata in your agent decorator. This information shapes how your agent is presented in the GUI.
+To create the most engaging and helpful interface for your users, define the following metadata in your agent decorator.
+This information shapes how your agent is presented in the GUI.
 
 ```py
 @server.agent(
     name="chat",
     description=(
-        "Conversational agent with memory, supporting real-time search, "
-        "Wikipedia lookups, and weather updates through integrated tools"
+            "Conversational agent with memory, supporting real-time search, "
+            "Wikipedia lookups, and weather updates through integrated tools"
     ),
     metadata=Metadata(
         annotations=Annotations(
@@ -108,10 +118,13 @@ To create the most engaging and helpful interface for your users, define the fol
 )
 ```
 
->[!Note]
->The example above highlights the components that directly impact the **GUI experience**. For the complete metadata specification, see the [ACP Agent Detail](https://agentcommunicationprotocol.dev/core-concepts/agent-detail) documentation.
+> [!Note]
+> The example above highlights the components that directly impact the **GUI experience**. For the complete metadata
+> specification, see the [ACP Agent Detail](https://agentcommunicationprotocol.dev/core-concepts/agent-detail)
+> documentation.
 
-4. **Update project metadata and dependencies** in the `pyproject.toml` file. After updating, synchronize with `uv sync`.
+4. **Update project metadata and dependencies** in the `pyproject.toml` file. After updating, synchronize with
+   `uv sync`.
 
 ## Running Agents Locally
 
@@ -147,7 +160,9 @@ There are two ways to add your agent to the BeeAI Platform:
 
 ### Local Development Mode
 
-When running agents locally with `uv run server`, they are automatically registered with the BeeAI Platform. In this mode:
+When running agents locally with `uv run server`, they are automatically registered with the BeeAI Platform. In this
+mode:
+
 - The BeeAI Platform will communicate with your local server
 - You manage the agent's lifecycle (starting/stopping)
 - Changes are immediately available without redeployment
@@ -160,6 +175,7 @@ To share your agent with others or deploy it to the BeeAI Platform:
 - Add the agent to BeeAI using: `beeai add https://github.com/your-username/your-repo-name`
 
 The BeeAI Platform will automatically:
+
 - Clone your repository
 - Build a Docker image
 - Start the agent container
