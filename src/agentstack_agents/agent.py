@@ -4,9 +4,9 @@ from a2a.types import (
     Message,
 )
 from a2a.utils.message import get_message_text
-from beeai_sdk.server import Server
-from beeai_sdk.server.context import RunContext
-from beeai_sdk.a2a.types import AgentMessage
+from agentstack_sdk.server import Server
+from agentstack_sdk.server.context import RunContext
+from agentstack_sdk.a2a.types import AgentMessage
 
 server = Server()
 
