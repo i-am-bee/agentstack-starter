@@ -21,8 +21,8 @@ jobs:
       with:
         python-version: '3.x'
 
-    - name: Install BeeAI CLI
-      run: pip install beeai-cli
+    - name: Install Agent Stack CLI
+      run: pip install agentstack-cli
 
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v2
@@ -48,4 +48,4 @@ jobs:
 
     - name: Build and Push
       run: |
-        beeai build ./ --tag ghcr.io/${{ github.repository }}/my-agent:${{ steps.extract_version.outputs.version }} --no-import --multi-platform --push
+        agentstack build ./ --tag ghcr.io/${{ github.repository }}/my-agent:${{ steps.extract_version.outputs.version }} --no-import --multi-platform --push

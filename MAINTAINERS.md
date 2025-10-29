@@ -4,7 +4,7 @@ A repository maintainer is a committer with the additional privilege of merging 
 
 ## Current Maintainers
 
-This template repository shares the same maintainers as the main BeeAI platform repository. You can find the full list in the main repository’s [MAINTAINERS.md](https://github.com/i-am-bee/beeai/blob/main/MAINTAINERS.md) file.
+This template repository shares the same maintainers as the main Agent Stack repository. You can find the full list in the main repository’s [MAINTAINERS.md](https://github.com/i-am-bee/agentstack/blob/main/MAINTAINERS.md) file.
 
 ## Becoming a Maintainer
 

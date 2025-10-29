@@ -1,12 +1,12 @@
 [project]
-name = "beeai-agents"
+name = "agentstack-agents"
 version = "0.1.1"
 description = "Add your description here"
 readme = "README.md"
 authors = [{ name = "IBM Corp." }]
 requires-python = ">=3.11,<4.0"
 dependencies = [
-    "beeai-sdk>=0.3.7",
+    "agentstack-sdk>=0.4.0",
     "pyyaml>=6.0.2",
 ]
 
@@ -15,7 +15,7 @@ line-length = 120
 target-version = "py311"
 
 [project.scripts]
-server = "beeai_agents.agent:run"
+server = "agentstack_agents.agent:run"
 
 [build-system]
 requires = ["hatchling"]
