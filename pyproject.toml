@@ -6,16 +6,13 @@ readme = "README.md"
 authors = [{ name = "IBM Corp." }]
 requires-python = ">=3.11,<4.0"
 dependencies = [
-    "agentstack-sdk>=0.4.0",
+    "agentstack-sdk==0.4.0rc1",
     "pyyaml>=6.0.2",
 ]
 
 [tool.ruff]
 line-length = 120
 target-version = "py311"
-
-[tool.uv.sources]
-agentstack-sdk = { git = "https://github.com/i-am-bee/agentstack", subdirectory = "apps/agentstack-sdk-py" }
 
 [project.scripts]
 server = "agentstack_agents.agent:run"
