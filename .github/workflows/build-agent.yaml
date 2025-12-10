@@ -48,4 +48,4 @@ jobs:
 
     - name: Build and Push
       run: |
-        agentstack build ./ --tag ghcr.io/${{ github.repository }}/my-agent:${{ steps.extract_version.outputs.version }} --no-import --multi-platform --push
+        agentstack client-side-build ./ --tag ghcr.io/${{ github.repository }}/my-agent:${{ steps.extract_version.outputs.version }} --no-import --multi-platform --push
