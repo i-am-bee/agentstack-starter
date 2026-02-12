@@ -1,0 +1,44 @@
+name: Weekly Docker Build and Test
+
+on:
+  schedule:
+    # Run every Monday at 9:00 AM UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+
+jobs:
+  docker-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Build Docker image
+      run: docker build -t test-image .
+
+    - name: Run Docker container and check startup
+      run: |
+        set +e
+
+        timeout 10s docker run --rm test-image > container_output.log 2>&1
+        EXIT_CODE=$?
+
+        if grep -q "Application startup complete." container_output.log; then
+          echo "✓ Success: Application started successfully"
+          cat container_output.log
+          exit 0
+        elif [ $EXIT_CODE -eq 124 ]; then
+          echo "✗ Error: Timeout reached (10s) without seeing 'Application startup complete.'"
+          echo "Container output:"
+          cat container_output.log
+          exit 1
+        else
+          echo "✗ Error: Container exited with code $EXIT_CODE without completing startup"
+          echo "Container output:"
+          cat container_output.log
+          exit 1
+        fi
