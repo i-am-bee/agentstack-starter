@@ -21,3 +21,6 @@ build-backend = "uv_build"
 dev = [
     "watchfiles>=1.1.0",
 ]
+
+[tool.uv.sources]
+agentstack-sdk = { git = "https://github.com/i-am-bee/agentstack", subdirectory = "apps/agentstack-sdk-py", rev = "migrate-to-a2a-v1" }
